@@ -1,0 +1,31 @@
+header{
+  width: 100%;
+  background-color: black;
+  
+}
+.centerDiv {
+  width: 80%;
+  margin: 0px auto;
+  padding: 30px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.active_nav_item{
+  color: white;
+}
+a{
+  text-decoration: none;
+  color: #f0b965;
+  font-size: 20px;
+  cursor: pointer;
+}
+.logo a{
+  font-size: 30px;
+}
+
+.navMenu{
+  display: flex;
+  column-gap: 30px;
+}

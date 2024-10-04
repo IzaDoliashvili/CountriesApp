@@ -1,0 +1,28 @@
+.aboutUs{
+  background-image: url("../image/trip.jpg");
+  background-position-y: center; 
+  background-position-x: center;
+  background-size: cover; 
+  height: 400px;
+}
+.aboutUsCenter{
+  width: 90%;
+  margin:  auto;
+  padding: 100px;
+  color: #d7cbcb;
+  
+
+}
+.aboutUsCenter h1{
+  font-size: 30px;
+}
+.aboutUsCenter button{
+  background-color: #f0b965;
+  border-style: none;
+  padding: 12px 25px;
+  margin-top: 20px;
+  border-radius: 5px;
+  color: black;
+  font-size: 15px;
+  cursor: pointer;
+}
