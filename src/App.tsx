@@ -5,6 +5,8 @@ import ContactInfo from "./pages/contact/view/contact/index";
 import NotFoundPage from "./pages/404";
 import {lazy, Suspense } from "react";
 import SingleArticleView from "@/pages/home/components/single"
+import HeroSection from "./pages/home/components/list/hero-section/hero-section";
+
 
 
 const ArticlesListView = lazy(() => import("./pages/home/view/list"));
@@ -13,7 +15,7 @@ function App() {
   return (
     <Routes>
       <Route element={<DefaultLayout />}>
-      <Route path="/" element={<div>Landing</div>} />
+      <Route path="/" element={<HeroSection />} />
           <Route
             path="home"
             element={
