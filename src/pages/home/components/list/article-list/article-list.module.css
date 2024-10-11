@@ -5,10 +5,31 @@
     padding: 40px 20px;
     justify-content: space-around;
 }
+.article {
+    border: none;
+   
+  }
+  
+.articleDeleted {
+    border: 2px solid black;
+    border-radius: 10px;
+  }
 .articles{
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 40px 20px;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 20px;
+
     justify-content: space-around;
+}
+.SortCreateForm{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    
 }
