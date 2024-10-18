@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import DefaultLayout from "./layout/dashboard/index";
 import AboutView from "./pages/about/view/about/index";
 import ContactInfo from "./pages/contact/view/contact/index";
@@ -14,8 +14,8 @@ const ArticlesListView = lazy(() => import("./pages/home/view/list"));
 function App() {
   return (
     <Routes>
-      <Route element={<DefaultLayout />}>
-      <Route path="/" element={<HeroSection />} />
+      <Route path="/:lang" element={<DefaultLayout />}>
+      <Route path="/:lang" element={<HeroSection />} />
           <Route
             path="home"
             element={
@@ -29,7 +29,7 @@ function App() {
         <Route path="contact" element={<ContactInfo />} />
         
       </Route>
-
+      <Route path="/" element={<Navigate to="/en/home" />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

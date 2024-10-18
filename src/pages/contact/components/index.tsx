@@ -1,8 +1,30 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import style from "./contact.module.css";
+import { useParams } from 'react-router-dom';
+
+const translations = {
+  en: {
+    firstName: "First Name",
+    lastName: "Last Name",
+    email: "Email",
+    message: "Message",
+    submit: "Submit",
+  },
+  ka: {
+    firstName: "სახელი",
+    lastName: "გვარი",
+    email: "ელფოსტა",
+    message: "მესიჯი",
+    submit: "გაგზავნა",
+  },
+};
+
 
 const ContactForm = () => {
+  const { lang} = useParams(); 
+  const currentLang = translations[lang] || translations.en;
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -74,12 +96,13 @@ const handleSubmit = (e: React.FormEvent) => {
       alert("Form data saved!");
     }
   };
+  
 
   return (
     <section className={style.centerform}>
       <form onSubmit={handleSubmit} className={style.contactForm}>
         <label>
-          First Name:
+        {currentLang.firstName}:
           <input
             type="text"
             name="firstName"
@@ -89,7 +112,7 @@ const handleSubmit = (e: React.FormEvent) => {
           <p style={{ color: "red" }}>{errors.firstName}</p>
         </label>
         <label>
-          Last Name:
+        {currentLang.lastName}:
           <input
             type="text"
             name="lastName"
@@ -100,7 +123,7 @@ const handleSubmit = (e: React.FormEvent) => {
           
         </label>
         <label>
-          Email:
+        {currentLang.email}:
           <input
             type="email"
             name="email"
@@ -110,7 +133,7 @@ const handleSubmit = (e: React.FormEvent) => {
           <p style={{ color: "red" }}>{errors.email}</p>
         </label>
         <label>
-          Message:
+        {currentLang.message}:
           <textarea
             name="message"
             value={formData.message}
@@ -118,7 +141,7 @@ const handleSubmit = (e: React.FormEvent) => {
           />
           <p style={{ color: "red" }}>{errors.message}</p>
         </label>
-        <button type="submit">Submit</button>
+        <button type="submit">{currentLang.submit}</button>
       </form>
     </section>
   );

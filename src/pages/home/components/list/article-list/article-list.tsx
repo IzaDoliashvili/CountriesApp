@@ -4,18 +4,23 @@ import ArticleInfo from "@/pages/home/components/list/article-info/article-info"
 import ArticleTitle from "@/pages/home/components/list/article-title/article-title";
 import ArticleDescription from "@/pages/home/components/list/article-description/article-description";
 import { useReducer, useState, MouseEvent} from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ArticleCapital from "../article-capital/article-capital";
 import { FaSortDown } from "react-icons/fa6";
 import { FaSortUp } from "react-icons/fa6";
 import { articlesReducer } from "@/pages/home/components/list/article-list/reducer/reducer";
-import { articlesInitialState } from "@/pages/home/components/list/article-list/reducer/state";
+import { articlesInitialState }  from "@/pages/home/components/list/article-list/reducer/state";
 import ArticleCreateForm from "@/pages/home/components/list/article-create-form/article-create-form";
 
+
+
+
 const ArticleList: React.FC = () => {
+
   const [articlesList, dispatch] = useReducer(articlesReducer, articlesInitialState);
   const [formValidationErrorMsg, setFormValidationErrorMsg] = useState("");
 
+ 
   const handleArticleUpvote = (id: string) => {
     return () => {
       const updatedArticlesList = articlesList.map((article: { id: string; vote: number;deleted: boolean; }) => {
@@ -61,6 +66,13 @@ const ArticleList: React.FC = () => {
     dispatch({ type: "recover", payload: { id } });
   };
 
+const { lang } = useParams<{ lang: string }>();
+const currentLangArticles = articlesInitialState[lang] || articlesInitialState.en;
+   
+  console.log("Current Language:", lang);
+  console.log("Current Language Articles:", currentLangArticles);
+  console.log("Articles List:", articlesList);  
+
   return (
     <section className={classes.root}>
       <div className={classes.SortCreateForm}>
@@ -100,24 +112,27 @@ const ArticleList: React.FC = () => {
           onArticleCreate={handleCreateArticle}
         />
       </div>
+      
 
       <div className={classes.articles}>
-        {articlesList
+      {articlesList
           .sort((a:{ id: string; vote: number; deleted: boolean },b:{ id: string; vote: number; deleted: boolean }) => (a.deleted === b.deleted ? 0 : a.deleted ? 1 : -1))
           .map((article:any) => {
+
+            const translatedArticle = currentLangArticles.find((a) => a.id === article.id);
             return (
               <Article key={article.id}
-              className={`${article.deleted ? classes.articleDeleted : ''}`}>
-                <img src={article.imageSrc} alt={article.title} />
+               className={`${article.deleted ? classes.articleDeleted : ''}`}>
+                <img src={article.imageSrc} alt={translatedArticle?.title} />
                 <ArticleInfo>
                   <ArticleTitle
                     onUpVote={handleArticleUpvote(article.id)}
                     voteCount={article.vote}
                   >
-                    {article.title}
+                    {translatedArticle?.title}
                   </ArticleTitle>
-                  <ArticleCapital>{article.capital}</ArticleCapital>
-                  <ArticleDescription>{article.description}</ArticleDescription>
+                  <ArticleCapital>{translatedArticle?.capital}</ArticleCapital>
+                  <ArticleDescription>{translatedArticle?.description}</ArticleDescription>
                   <div>
                     <Link
                       style={{
@@ -167,7 +182,8 @@ const ArticleList: React.FC = () => {
                 </ArticleInfo>
               </Article>
             );
-          })}
+          })
+        }
       </div>
     </section>
   );
