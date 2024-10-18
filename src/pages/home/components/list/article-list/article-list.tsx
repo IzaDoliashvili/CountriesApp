@@ -17,10 +17,6 @@ import ArticleCreateForm from "@/pages/home/components/list/article-create-form/
 
 const ArticleList: React.FC = () => {
 
-  const [articlesList, dispatch] = useReducer(articlesReducer, articlesInitialState);
-  const [formValidationErrorMsg, setFormValidationErrorMsg] = useState("");
-
- 
   const handleArticleUpvote = (id: string) => {
     return () => {
       const updatedArticlesList = articlesList.map((article: { id: string; vote: number;deleted: boolean; }) => {
@@ -65,15 +61,14 @@ const ArticleList: React.FC = () => {
     e.preventDefault();
     dispatch({ type: "recover", payload: { id } });
   };
+  
+  const [articlesList, dispatch] = useReducer(articlesReducer, articlesInitialState);
+  const [formValidationErrorMsg, setFormValidationErrorMsg] = useState("");
 
-const { lang } = useParams<{ lang: string }>();
-const currentLangArticles = articlesInitialState[lang] || articlesInitialState.en;
-   
-  console.log("Current Language:", lang);
-  console.log("Current Language Articles:", currentLangArticles);
-  console.log("Articles List:", articlesList);  
 
-  return (
+  const { lang } = useParams<{ lang: string }>();
+  const currentLangArticles = articlesInitialState[lang] || articlesInitialState.en;
+return (
     <section className={classes.root}>
       <div className={classes.SortCreateForm}>
         <div style={{ display: "flex" }}>
@@ -112,14 +107,11 @@ const currentLangArticles = articlesInitialState[lang] || articlesInitialState.e
           onArticleCreate={handleCreateArticle}
         />
       </div>
-      
-
       <div className={classes.articles}>
-      {articlesList
+      {currentLangArticles
           .sort((a:{ id: string; vote: number; deleted: boolean },b:{ id: string; vote: number; deleted: boolean }) => (a.deleted === b.deleted ? 0 : a.deleted ? 1 : -1))
           .map((article:any) => {
-
-            const translatedArticle = currentLangArticles.find((a) => a.id === article.id);
+            const translatedArticle = currentLangArticles.find((a: { id: any; }) => a.id === article.id);
             return (
               <Article key={article.id}
                className={`${article.deleted ? classes.articleDeleted : ''}`}>

@@ -22,8 +22,6 @@ const handleUpvoteArticle = (articlesList: any, id: any) => {
   });
 };
 
-
-
 export const articlesReducer = (
   articlesList: ArticlesReducerInitialState,
   action: ArticlesReducerAction
