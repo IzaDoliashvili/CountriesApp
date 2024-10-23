@@ -12,10 +12,8 @@ import { articlesReducer } from "@/pages/home/components/list/article-list/reduc
 import { articlesInitialState }  from "@/pages/home/components/list/article-list/reducer/state";
 import ArticleCreateForm from "@/pages/home/components/list/article-create-form/article-create-form";
 
-
-
-
 const ArticleList: React.FC = () => {
+  const { lang } = useParams<{ lang: string }>();
 
   const handleArticleUpvote = (id: string) => {
     return () => {
@@ -39,33 +37,49 @@ const ArticleList: React.FC = () => {
     const sortedArticles = [...articlesList].sort((a, b) => b.vote - a.vote);
     dispatch({ type: "sort", payload: sortedArticles });
   };
+
   const handleCreateArticle = (articleFields: {
-    title: string;
-    description: string;
+    titleKa: string;
+    titleEn: string;
+    descriptionKa: string;
+    descriptionEn: string;
     imageSrc: string;
   }) => {
-    if (articleFields.title.length > 8) {
+    if (articleFields.titleKa.length > 8) {
       setFormValidationErrorMsg("სათაური უნდა შეიცავდეს 8-ზე ნაკლებ სიმბოლოს !");
-      return; 
+      return;
     }
+    const newId = articlesList.length > 0 
+    ? (Number(articlesList.at(-1)?.id) + 1).toString() 
+    : "1";
+    const newArticle = [
+      {
+        id: newId,
+        title: articleFields.titleEn,
+        description: articleFields.descriptionEn,
+        imageSrc: articleFields.imageSrc,
+        capital: "Capital Name",
+        vote: 0,
+        deleted: false,
+        lang: "en",
+      },
+      {
+        id: newId,
+        title: articleFields.titleKa,
+        description: articleFields.descriptionKa,
+        imageSrc: articleFields.imageSrc,
+        capital: "Capital Name",
+        vote: 0,
+        deleted: false,
+        lang: "ka",
+      },
+    ];
   
-    dispatch({ type: "create", payload: { articleFields } });
-    // console.log(articleFields);
+    newArticle.forEach((article) => {
+      dispatch({ type: "create", payload: { articleFields: article } });
+    });
     
   };
-  
-  // const handleCreateArticle = (articleFields: {
-  //   title: string;
-  //   description: string;
-  // }) => {
-  //   if (articleFields.title.length > 8) {
-  //     setFormValidationErrorMsg(
-  //       "სათაური უნდა შეიცავდეს 8-ზე ნაკლებ სიმბოლოს !"
-  //     );
-  //   };
-
-  //   dispatch({ type: "create", payload: { articleFields } });
-  // };
 
   const handleArticleDelete = (e: MouseEvent, id: string) => {
     e.preventDefault();
@@ -78,11 +92,8 @@ const ArticleList: React.FC = () => {
   
   const [articlesList, dispatch] = useReducer(articlesReducer, articlesInitialState);
   const [formValidationErrorMsg, setFormValidationErrorMsg] = useState("");
-  const { lang } = useParams<{ lang: string }>();
-  const currentLangArticles = articlesList.filter((article: { lang: string | undefined; }) => article.lang === lang);
-
-  console.log(currentLangArticles);
-  
+  const currentLangArticles = articlesList.filter((article: { lang: string | undefined }) => article.lang === lang
+  ) || [];
 
 return (
     <section className={classes.root}>

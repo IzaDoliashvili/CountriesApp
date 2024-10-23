@@ -35,28 +35,26 @@ export const articlesReducer = (
       return action.payload.sortType === "asc" ? a.vote - b.vote : b.vote - a.vote;
     });
   }
-
+   
   if (action.type === "create") {
-   
-    const newArticle = [
-      ...articlesList,
-      {
-        ...action.payload.articleFields,
-        imageSrc: action.payload.articleFields.imageSrc || "https://via.placeholder.com/300",
-        vote: 0,
-        id: (Number(articlesList.at(-1)?.id) + 1).toString(),
-        deleted: false, 
-      },
-    ];
+    const newId = articlesList.length > 0 
+    ? (Number(articlesList.at(-1)?.id) + 1).toString() 
+    : "1";   
+
+    const newArticle = {
+      ...action.payload.articleFields,
+      imageSrc: action.payload.articleFields.imageSrc || "https://via.placeholder.com/300",
+      vote: 0,
+      id: newId,
+      deleted: false,
+    };
     const updatedArticlesList = [newArticle, ...articlesList];
-    console.log(updatedArticlesList);
-    console.log(newArticle);
     
-    
+    console.log("New Article:", newArticle);
+    console.log("Updated Articles List:", updatedArticlesList);
+     
 
-
-    return updatedArticlesList;
-   
+    return updatedArticlesList;  
   }
 
   if (action.type === "delete") {
