@@ -39,19 +39,33 @@ const ArticleList: React.FC = () => {
     const sortedArticles = [...articlesList].sort((a, b) => b.vote - a.vote);
     dispatch({ type: "sort", payload: sortedArticles });
   };
-
   const handleCreateArticle = (articleFields: {
     title: string;
     description: string;
+    imageSrc: string;
   }) => {
     if (articleFields.title.length > 8) {
-      setFormValidationErrorMsg(
-        "სათაური უნდა შეიცავდეს 8-ზე ნაკლებ სიმბოლოს !"
-      );
-    };
-
+      setFormValidationErrorMsg("სათაური უნდა შეიცავდეს 8-ზე ნაკლებ სიმბოლოს !");
+      return; 
+    }
+  
     dispatch({ type: "create", payload: { articleFields } });
+    // console.log(articleFields);
+    
   };
+  
+  // const handleCreateArticle = (articleFields: {
+  //   title: string;
+  //   description: string;
+  // }) => {
+  //   if (articleFields.title.length > 8) {
+  //     setFormValidationErrorMsg(
+  //       "სათაური უნდა შეიცავდეს 8-ზე ნაკლებ სიმბოლოს !"
+  //     );
+  //   };
+
+  //   dispatch({ type: "create", payload: { articleFields } });
+  // };
 
   const handleArticleDelete = (e: MouseEvent, id: string) => {
     e.preventDefault();
@@ -64,10 +78,12 @@ const ArticleList: React.FC = () => {
   
   const [articlesList, dispatch] = useReducer(articlesReducer, articlesInitialState);
   const [formValidationErrorMsg, setFormValidationErrorMsg] = useState("");
-
-
   const { lang } = useParams<{ lang: string }>();
-  const currentLangArticles = articlesInitialState[lang] || articlesInitialState.en;
+  const currentLangArticles = articlesList.filter((article: { lang: string | undefined; }) => article.lang === lang);
+
+  console.log(currentLangArticles);
+  
+
 return (
     <section className={classes.root}>
       <div className={classes.SortCreateForm}>
@@ -106,11 +122,14 @@ return (
           errorMsg={formValidationErrorMsg}
           onArticleCreate={handleCreateArticle}
         />
+        
+        
       </div>
       <div className={classes.articles}>
       {currentLangArticles
           .sort((a:{ id: string; vote: number; deleted: boolean },b:{ id: string; vote: number; deleted: boolean }) => (a.deleted === b.deleted ? 0 : a.deleted ? 1 : -1))
           .map((article:any) => {
+            
             const translatedArticle = currentLangArticles.find((a: { id: any; }) => a.id === article.id);
             return (
               <Article key={article.id}

@@ -37,18 +37,26 @@ export const articlesReducer = (
   }
 
   if (action.type === "create") {
-    const updatedArticlesList = [
+   
+    const newArticle = [
       ...articlesList,
       {
         ...action.payload.articleFields,
-        imageSrc: "https://via.placeholder.com/300",
+        imageSrc: action.payload.articleFields.imageSrc || "https://via.placeholder.com/300",
         vote: 0,
         id: (Number(articlesList.at(-1)?.id) + 1).toString(),
         deleted: false, 
       },
     ];
+    const updatedArticlesList = [newArticle, ...articlesList];
+    console.log(updatedArticlesList);
+    console.log(newArticle);
+    
+    
+
 
     return updatedArticlesList;
+   
   }
 
   if (action.type === "delete") {
@@ -66,3 +74,4 @@ export const articlesReducer = (
 
   return articlesList;
 };
+
