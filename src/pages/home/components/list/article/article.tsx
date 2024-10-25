@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 interface ArticleProps {
   children: React.ReactNode;
-  className?: string; 
+  className?: string;
 }
 
 const Article: React.FC<ArticleProps> = ({ children, className }) => {
@@ -15,7 +15,6 @@ const Article: React.FC<ArticleProps> = ({ children, className }) => {
 };
 
 export default Article;
-
 
 // const Article: React.FC<React.PropsWithChildren> = ({ children }) => {
 //   return <article className={classes.root}>{children}</article>;

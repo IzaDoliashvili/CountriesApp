@@ -1,4 +1,4 @@
- const ArticleDescription: React.FC<React.PropsWithChildren> = ({
+const ArticleDescription: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   return <p>{children}</p>;

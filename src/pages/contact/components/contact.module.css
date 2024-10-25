@@ -1,18 +1,18 @@
-.centerform{
-    width: 100%;
+.centerform {
+  width: 100%;
 }
-.contactForm{
-    width: 50%;
-    margin: 100px ;
-    display: flex;
-    flex-direction: column;
-    row-gap: 30px;
-
+.contactForm {
+  width: 50%;
+  margin: 100px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
 }
-label input, textarea{
-    margin-left: 20px;
+label input,
+textarea {
+  margin-left: 20px;
 }
-button{
-    width: 30%;
-    margin-left: 50px;
+button {
+  width: 30%;
+  margin-left: 50px;
 }

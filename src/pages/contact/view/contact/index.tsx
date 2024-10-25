@@ -4,4 +4,4 @@ const ContactInfo = () => {
   return <ContactForm />;
 };
 
-export default ContactInfo ;
+export default ContactInfo;

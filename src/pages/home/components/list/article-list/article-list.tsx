@@ -3,13 +3,13 @@ import classes from "./article-list.module.css";
 import ArticleInfo from "@/pages/home/components/list/article-info/article-info";
 import ArticleTitle from "@/pages/home/components/list/article-title/article-title";
 import ArticleDescription from "@/pages/home/components/list/article-description/article-description";
-import { useReducer, useState, MouseEvent} from "react";
+import { useReducer, useState, MouseEvent } from "react";
 import { Link, useParams } from "react-router-dom";
 import ArticleCapital from "../article-capital/article-capital";
 import { FaSortDown } from "react-icons/fa6";
 import { FaSortUp } from "react-icons/fa6";
 import { articlesReducer } from "@/pages/home/components/list/article-list/reducer/reducer";
-import { articlesInitialState }  from "@/pages/home/components/list/article-list/reducer/state";
+import { articlesInitialState } from "@/pages/home/components/list/article-list/reducer/state";
 import ArticleCreateForm from "@/pages/home/components/list/article-create-form/article-create-form";
 
 const ArticleList: React.FC = () => {
@@ -17,12 +17,14 @@ const ArticleList: React.FC = () => {
 
   const handleArticleUpvote = (id: string) => {
     return () => {
-      const updatedArticlesList = articlesList.map((article: { id: string; vote: number;deleted: boolean; }) => {
-        if (article.id === id) {
-          return { ...article, vote: article.vote + 1 };
-        }
-        return article;
-      });
+      const updatedArticlesList = articlesList.map(
+        (article: { id: string; vote: number; deleted: boolean }) => {
+          if (article.id === id) {
+            return { ...article, vote: article.vote + 1 };
+          }
+          return article;
+        },
+      );
 
       dispatch({ type: "sort", payload: updatedArticlesList });
     };
@@ -46,12 +48,15 @@ const ArticleList: React.FC = () => {
     imageSrc: string;
   }) => {
     if (articleFields.titleKa.length > 8) {
-      setFormValidationErrorMsg("სათაური უნდა შეიცავდეს 8-ზე ნაკლებ სიმბოლოს !");
+      setFormValidationErrorMsg(
+        "სათაური უნდა შეიცავდეს 8-ზე ნაკლებ სიმბოლოს !",
+      );
       return;
     }
-    const newId = articlesList.length > 0 
-    ? (Number(articlesList.at(-1)?.id) + 1).toString() 
-    : "1";
+    const newId =
+      articlesList.length > 0
+        ? (Number(articlesList.at(-1)?.id) + 1).toString()
+        : "1";
     const newArticle = [
       {
         id: newId,
@@ -74,11 +79,10 @@ const ArticleList: React.FC = () => {
         lang: "ka",
       },
     ];
-  
+
     newArticle.forEach((article) => {
       dispatch({ type: "create", payload: { articleFields: article } });
     });
-    
   };
 
   const handleArticleDelete = (e: MouseEvent, id: string) => {
@@ -89,13 +93,18 @@ const ArticleList: React.FC = () => {
     e.preventDefault();
     dispatch({ type: "recover", payload: { id } });
   };
-  
-  const [articlesList, dispatch] = useReducer(articlesReducer, articlesInitialState);
-  const [formValidationErrorMsg, setFormValidationErrorMsg] = useState("");
-  const currentLangArticles = articlesList.filter((article: { lang: string | undefined }) => article.lang === lang
-  ) || [];
 
-return (
+  const [articlesList, dispatch] = useReducer(
+    articlesReducer,
+    articlesInitialState,
+  );
+  const [formValidationErrorMsg, setFormValidationErrorMsg] = useState("");
+  const currentLangArticles =
+    articlesList.filter(
+      (article: { lang: string | undefined }) => article.lang === lang,
+    ) || [];
+
+  return (
     <section className={classes.root}>
       <div className={classes.SortCreateForm}>
         <div style={{ display: "flex" }}>
@@ -133,18 +142,25 @@ return (
           errorMsg={formValidationErrorMsg}
           onArticleCreate={handleCreateArticle}
         />
-        
-        
       </div>
       <div className={classes.articles}>
-      {currentLangArticles
-          .sort((a:{ id: string; vote: number; deleted: boolean },b:{ id: string; vote: number; deleted: boolean }) => (a.deleted === b.deleted ? 0 : a.deleted ? 1 : -1))
-          .map((article:any) => {
-            
-            const translatedArticle = currentLangArticles.find((a: { id: any; }) => a.id === article.id);
+        {currentLangArticles
+          .sort(
+            (
+              a: { id: string; vote: number; deleted: boolean },
+              b: { id: string; vote: number; deleted: boolean },
+            ) => (a.deleted === b.deleted ? 0 : a.deleted ? 1 : -1),
+          )
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .map((article: any) => {
+            const translatedArticle = currentLangArticles.find(
+              (a: { id: string }) => a.id === article.id,
+            );
             return (
-              <Article key={article.id}
-               className={`${article.deleted ? classes.articleDeleted : ''}`}>
+              <Article
+                key={article.id}
+                className={`${article.deleted ? classes.articleDeleted : ""}`}
+              >
                 <img src={article.imageSrc} alt={translatedArticle?.title} />
                 <ArticleInfo>
                   <ArticleTitle
@@ -154,7 +170,9 @@ return (
                     {translatedArticle?.title}
                   </ArticleTitle>
                   <ArticleCapital>{translatedArticle?.capital}</ArticleCapital>
-                  <ArticleDescription>{translatedArticle?.description}</ArticleDescription>
+                  <ArticleDescription>
+                    {translatedArticle?.description}
+                  </ArticleDescription>
                   <div>
                     <Link
                       style={{
@@ -204,8 +222,7 @@ return (
                 </ArticleInfo>
               </Article>
             );
-          })
-        }
+          })}
       </div>
     </section>
   );

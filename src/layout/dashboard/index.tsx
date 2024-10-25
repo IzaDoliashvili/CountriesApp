@@ -1,9 +1,7 @@
-import { Footer } from "@/components/footer/footer"
+import { Footer } from "@/components/footer/footer";
 import { Header } from "@/components/header/header";
 import { PageContainer } from "../../components/page-container/page-container";
 import { Outlet } from "react-router-dom";
-
-
 
 const DashboardLayout = () => {
   return (
@@ -15,6 +13,6 @@ const DashboardLayout = () => {
       <Footer />
     </>
   );
-  };
+};
 
 export default DashboardLayout;

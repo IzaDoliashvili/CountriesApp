@@ -1,6 +1,6 @@
-.articleTitleFlex{
-    display: flex;
-    column-gap: 20px;
-    align-items: center;
-    font-size: 22px;
+.articleTitleFlex {
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
+  font-size: 22px;
 }

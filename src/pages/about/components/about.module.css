@@ -1,19 +1,17 @@
+.aboutUsCenter {
+  width: 90%;
+  margin: auto;
+  padding: 100px;
+  color: #232121;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-.aboutUsCenter{
-    width: 90%;
-    margin:  auto;
-    padding: 100px;
-    color: #232121;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.aboutUsCenter img {
+  width: 300px;
+  border-radius: 10px;
 }
-   
-.aboutUsCenter img{
-    width: 300px;
-    border-radius: 10px;
-    
-}
-  .aboutUsCenter h1{
-    font-size: 50px;
+.aboutUsCenter h1 {
+  font-size: 50px;
 }

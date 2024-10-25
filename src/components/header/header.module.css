@@ -1,7 +1,6 @@
-header{
+header {
   width: 100%;
   background-color: black;
-  
 }
 .centerDiv {
   width: 80%;
@@ -10,22 +9,21 @@ header{
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
-.active_nav_item{
+.active_nav_item {
   color: white;
 }
-a{
+a {
   text-decoration: none;
   color: #f0b965;
   font-size: 20px;
   cursor: pointer;
 }
-.logo a{
+.logo a {
   font-size: 30px;
 }
 
-.navMenu{
+.navMenu {
   display: flex;
   column-gap: 30px;
 }
