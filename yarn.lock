@@ -378,7 +378,12 @@
   resolved "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.15.tgz"
   integrity sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==
 
-"@types/node@^18.0.0 || >=20.0.0", "@types/node@^22.7.3":
+"@types/mocha@latest":
+  version "10.0.9"
+  resolved "https://registry.npmjs.org/@types/mocha/-/mocha-10.0.9.tgz"
+  integrity sha512-sicdRoWtYevwxjOHNMPTl3vSfJM6oyW8o1wXeI7uww6b6xHg8eBznQDNSGBCDJmsE8UMxP05JgZRtsKbTqt//Q==
+
+"@types/node@^18.0.0 || >=20.0.0", "@types/node@^22.7.3", "@types/node@latest":
   version "22.7.3"
   resolved "https://registry.npmjs.org/@types/node/-/node-22.7.3.tgz"
   integrity sha512-qXKfhXXqGTyBskvWEzJZPUxSslAiLaB6JGP1ic/XTH9ctGgzdgYguuLP1C601aRTSDNlLb0jbKqXjZ48GNraSA==
@@ -820,6 +825,11 @@ esutils@^2.0.2:
   version "2.0.3"
   resolved "https://registry.npmjs.org/esutils/-/esutils-2.0.3.tgz"
   integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
+
+extend@^3.0.1:
+  version "3.0.2"
+  resolved "https://registry.npmjs.org/extend/-/extend-3.0.2.tgz"
+  integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
 
 fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
@@ -1346,6 +1356,15 @@ ts-api-utils@^1.3.0:
   version "1.3.0"
   resolved "https://registry.npmjs.org/ts-api-utils/-/ts-api-utils-1.3.0.tgz"
   integrity sha512-UQMIo7pb8WRomKR1/+MFVLTroIvDVtMX3K6OUir8ynLyzB8Jeriont2bTAtmNPa1ekAgN7YPDyf6V+ygrdU+eQ==
+
+ts-check@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.npmjs.org/ts-check/-/ts-check-0.2.4.tgz"
+  integrity sha512-IgXvDHvhBN3YIcCbjsfolKUdbwfzsUkZQNoOvPAuwR2T2jrwjBdIvc8uaWCPGepya9h2BfdlJTvhV6Z4Yb2CWA==
+  dependencies:
+    "@types/mocha" latest
+    "@types/node" latest
+    extend "^3.0.1"
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"

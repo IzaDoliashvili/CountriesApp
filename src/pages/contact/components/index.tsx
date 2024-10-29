@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
 import React from "react";
 import style from "./contact.module.css";
 import { useParams } from "react-router-dom";
@@ -20,7 +20,7 @@ const translations = {
   },
 };
 
-const ContactForm = () => {
+const ContactForm = ({ numInputs = 4 }) => {
   const { lang } = useParams();
   const currentLang = translations[lang] || translations.en;
 
@@ -96,6 +96,52 @@ const ContactForm = () => {
     }
   };
 
+  // add inputs
+
+  const [otp, setOtp] = useState(Array(numInputs).fill(""));
+
+  const inputRefs = useRef<HTMLInputElement[]>([]);
+
+  const handleOtpChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+    const value = e.target.value;
+    if (/^\d?$/.test(value)) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+
+      if (value && index < numInputs - 1) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    }
+  };
+
+  const handleOtpKey = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  const handleOtpPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pastData = e.clipboardData
+      .getData("text")
+      .slice(0, numInputs)
+      .split("");
+    const newOtp = [...otp];
+
+    pastData.forEach((char, i) => {
+      if (char.match(/^\d$/)) {
+        newOtp[i] = char;
+      }
+    });
+    setOtp(newOtp);
+
+    const lastIndex = pastData.length - 1;
+    if (inputRefs.current[lastIndex]) {
+      inputRefs.current[lastIndex].focus();
+    }
+  };
+
   return (
     <section className={style.centerform}>
       <form onSubmit={handleSubmit} className={style.contactForm}>
@@ -140,6 +186,31 @@ const ContactForm = () => {
         </label>
         <button type="submit">{currentLang.submit}</button>
       </form>
+
+      <div
+        style={{
+          marginTop: 100,
+          display: "flex",
+          gap: 8,
+          width: 200,
+          height: 50,
+        }}
+      >
+        {otp.map((value, index) => {
+          return (
+            <input
+              ref={(el) => (inputRefs.current[index] = el!)}
+              value={value}
+              onChange={(e) => handleOtpChange(e, index)}
+              onKeyDown={(e) => handleOtpKey(e, index)}
+              onPaste={handleOtpPaste}
+              style={{ width: 60, textAlign: "center" }}
+              maxLength={1}
+              key={index}
+            />
+          );
+        })}
+      </div>
     </section>
   );
 };
