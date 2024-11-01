@@ -55,13 +55,13 @@ const ArticleCreateForm: React.FC<ArticleCreateFormProps> = ({
       descriptionEn,
       titleKa,
       descriptionKa,
-      imageSrc,
+      imageSrc: imageSrc ?? "https://via.placeholder.com/300",
     });
     setTitleEn("");
     setDescriptionEn("");
     setTitleKa("");
     setDescriptionKa("");
-    setImageSrc("");
+    setImageSrc(null);
   };
 
   return (

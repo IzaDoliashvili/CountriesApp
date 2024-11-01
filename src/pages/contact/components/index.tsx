@@ -23,7 +23,8 @@ const translations = {
 
 const ContactForm = () => {
   const { lang } = useParams();
-  const currentLang = translations[lang] || translations.en;
+  const currentLang =
+    translations[lang as keyof typeof translations] || translations.en;
 
   const [formData, setFormData] = useState({
     firstName: "",

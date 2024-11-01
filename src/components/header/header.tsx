@@ -22,7 +22,8 @@ const translations = {
 
 export const Header: FC = () => {
   const { lang } = useParams<{ lang: string }>();
-  const currentLang = translations[lang] || translations.en;
+  const currentLang =
+    translations[lang as keyof typeof translations] || translations.en;
   const handleActiveNav = (props: NavLinkRenderProps) => {
     const { isActive } = props;
 
