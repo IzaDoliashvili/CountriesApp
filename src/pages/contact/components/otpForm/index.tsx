@@ -1,13 +1,11 @@
-import { useState,  useRef, ChangeEvent, KeyboardEvent } from "react";
+import { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
 import React from "react";
 
-
 interface OtpFormProps {
-    numInputs?: number;
-} 
+  numInputs?: number;
+}
 
-const OtpForm: React.FC<OtpFormProps> = ({ numInputs = 4 }): JSX.Element  =>{
-    
+const OtpForm: React.FC<OtpFormProps> = ({ numInputs = 4 }): JSX.Element => {
   const [otp, setOtp] = useState(Array(numInputs).fill(""));
 
   const inputRefs = useRef<HTMLInputElement[]>([]);
@@ -52,7 +50,6 @@ const OtpForm: React.FC<OtpFormProps> = ({ numInputs = 4 }): JSX.Element  =>{
     }
   };
 
-
   return (
     <div
       style={{
@@ -77,6 +74,5 @@ const OtpForm: React.FC<OtpFormProps> = ({ numInputs = 4 }): JSX.Element  =>{
       ))}
     </div>
   );
-
-}
+};
 export default OtpForm;

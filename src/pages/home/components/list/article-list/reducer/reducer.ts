@@ -10,13 +10,17 @@ type ArticlesReducerInitialState = {
 type ArticlesReducerAction = {
   type: "upvote" | "sort" | "create" | "delete" | "recover";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payload: any;
+  payload:any;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const handleUpvoteArticle = (articlesList: any, id: string) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return articlesList.map((article: any) => {
+const handleUpvoteArticle = (articlesList: ArticlesReducerInitialState, id: string) => {
+  return articlesList.map((article:{ 
+    imageSrc: string;
+    title: string;
+    description: string;
+    id: string;
+    vote: number;
+    deleted: boolean;} ) => {
     if (article.id === id) {
       return { ...article, vote: article.vote + 1 };
     }
@@ -82,3 +86,5 @@ export const articlesReducer = (
 
   return articlesList;
 };
+
+

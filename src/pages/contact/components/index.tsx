@@ -1,4 +1,4 @@
-import { useState, useEffect, } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import style from "./contact.module.css";
 import { useParams } from "react-router-dom";
@@ -97,57 +97,53 @@ const ContactForm = () => {
     }
   };
 
-  
   return (
     <>
-    <section className={style.centerform}>
-      <form onSubmit={handleSubmit} className={style.contactForm}>
-        <label>
-          {currentLang.firstName}:
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-          <p style={{ color: "red" }}>{errors.firstName}</p>
-        </label>
-        <label>
-          {currentLang.lastName}:
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
-          <p style={{ color: "red" }}>{errors.lastName}</p>
-        </label>
-        <label>
-          {currentLang.email}:
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <p style={{ color: "red" }}>{errors.email}</p>
-        </label>
-        <label>
-          {currentLang.message}:
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-          />
-          <p style={{ color: "red" }}>{errors.message}</p>
-        </label>
-        <button type="submit">{currentLang.submit}</button>
-      </form>
-      
-
-     
-    </section>
-    <OtpSection />
+      <section className={style.centerform}>
+        <form onSubmit={handleSubmit} className={style.contactForm}>
+          <label>
+            {currentLang.firstName}:
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+            <p style={{ color: "red" }}>{errors.firstName}</p>
+          </label>
+          <label>
+            {currentLang.lastName}:
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+            <p style={{ color: "red" }}>{errors.lastName}</p>
+          </label>
+          <label>
+            {currentLang.email}:
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <p style={{ color: "red" }}>{errors.email}</p>
+          </label>
+          <label>
+            {currentLang.message}:
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+            />
+            <p style={{ color: "red" }}>{errors.message}</p>
+          </label>
+          <button type="submit">{currentLang.submit}</button>
+        </form>
+      </section>
+      <OtpSection />
     </>
   );
 };

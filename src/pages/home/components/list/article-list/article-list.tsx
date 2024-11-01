@@ -3,7 +3,7 @@ import classes from "./article-list.module.css";
 import ArticleInfo from "@/pages/home/components/list/article-info/article-info";
 import ArticleTitle from "@/pages/home/components/list/article-title/article-title";
 import ArticleDescription from "@/pages/home/components/list/article-description/article-description";
-import { useReducer, useState, MouseEvent } from "react";
+import { useReducer, useState, MouseEvent, } from "react";
 import { Link, useParams } from "react-router-dom";
 import ArticleCapital from "../article-capital/article-capital";
 import { FaSortDown } from "react-icons/fa6";
@@ -87,11 +87,11 @@ const ArticleList: React.FC = () => {
 
   const handleArticleDelete = (e: MouseEvent, id: string) => {
     e.preventDefault();
-    dispatch({ type: "delete", payload: { id } });
+    dispatch({ type: "delete", payload: {id}   });
   };
   const handleArticleRecover = (e: MouseEvent, id: string) => {
     e.preventDefault();
-    dispatch({ type: "recover", payload: { id } });
+    dispatch({ type: "recover", payload:  {id } });
   };
 
   const [articlesList, dispatch] = useReducer(
@@ -151,8 +151,9 @@ const ArticleList: React.FC = () => {
               b: { id: string; vote: number; deleted: boolean },
             ) => (a.deleted === b.deleted ? 0 : a.deleted ? 1 : -1),
           )
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .map((article: any) => {
+          
+          .map((article: {
+            imageSrc: string | undefined; id: string; vote: number; deleted: boolean }) => {
             const translatedArticle = currentLangArticles.find(
               (a: { id: string }) => a.id === article.id,
             );
