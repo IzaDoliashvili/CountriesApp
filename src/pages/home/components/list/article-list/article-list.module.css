@@ -13,11 +13,11 @@
   border: 2px solid black;
   border-radius: 10px;
 }
-img{
+img {
   width: 200px;
 }
 
-form{
+form {
   display: flex;
   flex-direction: column;
   width: 30%;
@@ -34,6 +34,14 @@ form{
 
   justify-content: space-around;
 }
+.countryCard{
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
 .SortCreateForm {
   width: 90%;
   margin: auto;
