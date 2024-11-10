@@ -10,6 +10,7 @@ const translations = {
     about: "About us",
     services: "Services",
     contact: "Contact",
+    country: "Country",
   },
   ka: {
     logo: "საოცნებო მოგზაურობა",
@@ -17,6 +18,7 @@ const translations = {
     about: "ჩვენ შესახებ",
     services: "სერვისები",
     contact: "კონტაქტი",
+    country: "ქვეყანა",
   },
 };
 
@@ -51,6 +53,9 @@ export const Header: FC = () => {
           </NavLink>
           <NavLink to="contact" className={handleActiveNav}>
             {currentLang.contact}
+          </NavLink>
+          <NavLink to="country" className={handleActiveNav}>
+            {currentLang.country}
           </NavLink>
         </div>
         <div className={style.languageSwitcher}>

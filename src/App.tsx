@@ -6,6 +6,8 @@ import { NotFound } from "./pages/not-found";
 import { lazy, Suspense } from "react";
 import SingleArticleView from "@/pages/home/components/single";
 import HeroSection from "./pages/home/components/list/hero-section/hero-section";
+import CountriesListView from "@/pages/country/countries/index";
+import SingleCountryView from "@/pages/country/single-country/index";
 
 const ArticlesListView = lazy(() => import("./pages/home/view/list"));
 
@@ -23,6 +25,11 @@ function App() {
           }
         />
         <Route path="articles/:id" element={<SingleArticleView />} />
+        <Route
+          path="country"
+          element={<CountriesListView countryName={""} id={""} />}
+        />
+        <Route path="country/:id" element={<SingleCountryView />} />
         <Route path="about" element={<AboutView />} />
         <Route path="contact" element={<ContactInfo />} />
       </Route>
