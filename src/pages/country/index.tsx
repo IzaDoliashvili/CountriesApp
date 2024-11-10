@@ -1,11 +1,10 @@
 import { getCountries } from "@/api/countries";
-import CountryItem from "@/pages/country/countries/index";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
 const CountriesListView = () => {
   const {
-    data: articlesInitialState,
+    data: countriesList,
     isLoading: areCountriesLoading,
     isError: areCountriesErrored,
     // refetch: refetchCountries,
@@ -17,7 +16,8 @@ const CountriesListView = () => {
     retry: 0,
     refetchOnWindowFocus: false,
   });
-
+ console.log(countriesList);
+ 
   console.log("hu");
   useEffect(() => {}, []);
 
@@ -26,13 +26,17 @@ const CountriesListView = () => {
       <div style={{ margin: 48, fontSize: 48 }}>
         {areCountriesLoading ? "Loading ...." : null}
         {areCountriesErrored ? "Error" : null}
-        {articlesInitialState?.map((country) => {
+        {countriesList?.map((country) => {
           return (
-            <CountryItem
-              key={country.id}
-              id={country.id}
-              countryName={country.name}
-            />
+            <div key={country.id}>
+                 <img src={country.imageSrc} />
+                 <p>
+                   Country: {country.name} 
+                 </p>
+                 <p>Capital: {country.capital}</p>
+             <p>Votes: {country.vote}</p>
+                
+              </div>
           );
         })}
       </div>
