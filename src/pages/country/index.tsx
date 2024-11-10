@@ -16,8 +16,8 @@ const CountriesListView = () => {
     retry: 0,
     refetchOnWindowFocus: false,
   });
- console.log(countriesList);
- 
+  console.log(countriesList);
+
   console.log("hu");
   useEffect(() => {}, []);
 
@@ -29,14 +29,11 @@ const CountriesListView = () => {
         {countriesList?.map((country) => {
           return (
             <div key={country.id}>
-                 <img src={country.imageSrc} />
-                 <p>
-                   Country: {country.name} 
-                 </p>
-                 <p>Capital: {country.capital}</p>
-             <p>Votes: {country.vote}</p>
-                
-              </div>
+              <img src={country.imageSrc} />
+              <p>Country: {country.name}</p>
+              <p>Capital: {country.capital}</p>
+              <p>Votes: {country.vote}</p>
+            </div>
           );
         })}
       </div>

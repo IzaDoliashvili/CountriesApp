@@ -25,10 +25,7 @@ function App() {
           }
         />
         <Route path="articles/:id" element={<SingleArticleView />} />
-        <Route
-          path="country"
-          element={<CountriesListView />}
-        />
+        <Route path="country" element={<CountriesListView />} />
         <Route path="country/:id" element={<SingleCountryView />} />
         <Route path="about" element={<AboutView />} />
         <Route path="contact" element={<ContactInfo />} />
