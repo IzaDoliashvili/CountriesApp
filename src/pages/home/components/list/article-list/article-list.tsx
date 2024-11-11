@@ -7,6 +7,8 @@ import classes from "./article-list.module.css";
 import { Link } from "react-router-dom";
 import ArticleCreateForm from "@/pages/home/components/list/article-create-form/article-create-form";
 import { useArticlesList } from "@/pages/home/components/list/article-list/hooks/useArtclesList";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import React from "react";
 
 const ArticleList: React.FC = () => {
   const {
@@ -16,6 +18,15 @@ const ArticleList: React.FC = () => {
     handleArticlesSortByLikes,
     handleCreateArticle,
   } = useArticlesList();
+
+  const parentRef = React.useRef<HTMLDivElement>(null);
+  const rowVirtualizer = useVirtualizer({
+    count: articlesList.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 200,
+    overscan: 5
+
+  })
 
   return (
     <>
@@ -41,7 +52,54 @@ const ArticleList: React.FC = () => {
           onArticleCreate={handleCreateArticle}
         />
       </div>
-      <section className={classes.countryList}>
+      <section className={classes.countryList} ref={parentRef} style={{ height: "500px", overflow: "auto", marginTop:"20px" }}>
+        <div style={{ position: "relative", height: `${rowVirtualizer.getTotalSize()}px` }}>
+          {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+            const article = articlesList[virtualRow.index];
+
+            return (
+              <div
+                key={article.id}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  transform: `translateY(${virtualRow.start}px)`,
+                  display:"flex"
+                }}
+              >
+                <Link
+                  style={{ color:"black", textDecoration: "none", fontSize: 24, width:"100%" }}
+                  to={`/articles/${article.id}`}
+                >
+                  <Article >
+                    <img src={article.imageSrc} alt={article.title} />
+                    <ArticleInfo>
+                      <ArticleTitle onUpVote={article.id} voteCount={article.vote}>
+                        {article.title}
+                      </ArticleTitle>
+                      <ArticleDescription>{article.description}</ArticleDescription>
+                      <div
+                        style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 16 }}
+                      >
+                        <span>More Info</span>
+                        <span
+                          style={{ color: "red" }}
+                          onClick={(e) => handleArticleDelete(e, article.id)}
+                        >
+                          DELETE
+                        </span>
+                      </div>
+                    </ArticleInfo>
+                  </Article>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+      {/* <section className={classes.countryList}>
         {articlesList.map((article: any) => {
           return (
             <Link
@@ -83,7 +141,7 @@ const ArticleList: React.FC = () => {
             </Link>
           );
         })}
-      </section>
+      </section> */}
     </>
   );
 };

@@ -1,26 +1,21 @@
-import { httpClient } from "@/api";
-import { useEffect, useState } from "react";
 
-export const useFetch = (endpoint: string) => {
+import { useEffect, useState } from "react";
+import data from "database.json";
+
+export const useFetch = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [data, setData] = useState<any>();
+  
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
-
   useEffect(() => {
-    httpClient
-      .get(endpoint)
-      .then((res) => {
-        setData(res.data);
+    try {
+      setTimeout(() => {
         setIsLoading(false);
-      })
-      .catch(() => {
-        setIsError(true);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [endpoint]);
+      }, 500);
+    } catch {
+      setIsError(true);
+    }
+  }, []);
 
-  return { data, isLoading, isError };
+  return {  data, isLoading, isError };
 };

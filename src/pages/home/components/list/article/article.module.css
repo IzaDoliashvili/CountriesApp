@@ -4,9 +4,12 @@
   border-radius: 1rem;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   column-gap: 10px;
   /* max-width: 30%; */
+}
+article{
+  display: flex;
 }
 
 .article img {

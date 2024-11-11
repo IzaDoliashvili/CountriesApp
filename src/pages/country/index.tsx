@@ -1,8 +1,18 @@
 import { getCountries } from "@/api/countries";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import classes from "@/pages/home/components/list/article-list/article-list.module.css";
+import CountryItem from "./countries";
+
+ 
+type LanguageKey = "en" | "ka"; 
+
 
 const CountriesListView = () => {
+  const { lang = "en" } = useParams<{ lang: string }>();
+
+  const languageKey: LanguageKey = (["en", "ka"].includes(lang) ? lang : "en") as LanguageKey;
+
   const {
     data: countriesList,
     isLoading: areCountriesLoading,
@@ -17,25 +27,23 @@ const CountriesListView = () => {
     refetchOnWindowFocus: false,
   });
   console.log(countriesList);
+  
 
-  console.log("hu");
-  useEffect(() => {}, []);
 
   return (
     <>
-      <div style={{ margin: 48, fontSize: 48 }}>
+      <div className={classes.countryList}>
         {areCountriesLoading ? "Loading ...." : null}
         {areCountriesErrored ? "Error" : null}
-        {countriesList?.map((country) => {
-          return (
-            <div key={country.id}>
-              <img src={country.imageSrc} />
-              <p>Country: {country.name}</p>
-              <p>Capital: {country.capital}</p>
-              <p>Votes: {country.vote}</p>
-            </div>
-          );
-        })}
+        {countriesList?.map((country) => (
+            <div key={country.id} >
+                <img src={country.imageSrc} alt={`Image of ${country.name?.[languageKey]}`} />
+              <p>Country: {country.name?.[languageKey]}</p>
+            <p>Capital: {country.capital}</p>
+             <p>Votes: {country.vote}</p>
+           </div>
+         ))}
+         
       </div>
     </>
   );

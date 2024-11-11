@@ -15,7 +15,7 @@ export const useArticlesList = () => {
   useEffect(() => {
     const sortType = searchParams.get("sort") || "asc";
     axios
-      .get(`/articles?_sort=vote&_order=${sortType}`)
+      .get(`/articles?_sort=${sortType}`)
       .then((response) => {
         dispatch({ type: "replace", payload: response.data });
       })
