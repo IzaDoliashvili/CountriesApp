@@ -1,10 +1,7 @@
-
 import { useEffect, useState } from "react";
 import data from "database.json";
 
 export const useFetch = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
   useEffect(() => {
@@ -17,5 +14,5 @@ export const useFetch = () => {
     }
   }, []);
 
-  return {  data, isLoading, isError };
+  return { data, isLoading, isError };
 };

@@ -8,9 +8,18 @@
   column-gap: 10px;
   /* max-width: 30%; */
 }
-article{
+article {
   display: flex;
+  border: 1px solid black;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  max-width: 800px;
+  padding: 15px;
+  
+
 }
+
 
 .article img {
   width: 350px;

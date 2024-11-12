@@ -106,7 +106,7 @@ type ArticlesReducerInitialState = {
 }[];
 
 type ArticlesReducerAction = {
-  type: "upvote" | "sort" | "create" | "delete";
+  type: "upvote" | "sort" | "create" | "delete" |"append";
   payload: any;
 };
 
@@ -156,6 +156,9 @@ export const articlesReducer = (
     });
 
     return filteredArticlesList;
+  }
+  if (action.type === "append") {
+    return [...articlesList, ...action.payload.newArticles];
   }
 
   return articlesList;

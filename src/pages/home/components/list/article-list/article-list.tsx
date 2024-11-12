@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import ArticleInfo from "@/pages/home/components/list/article-info/article-info";
 import ArticleTitle from "@/pages/home/components/list/article-title/article-title";
 import Article from "@/pages/home/components/list/article/article";
@@ -17,6 +16,8 @@ const ArticleList: React.FC = () => {
     handleArticleDelete,
     handleArticlesSortByLikes,
     handleCreateArticle,
+    handleScroll,
+    loading,
   } = useArticlesList();
 
   const parentRef = React.useRef<HTMLDivElement>(null);
@@ -24,9 +25,8 @@ const ArticleList: React.FC = () => {
     count: articlesList.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 200,
-    overscan: 5
-
-  })
+    overscan: 5,
+  });
 
   return (
     <>
@@ -52,9 +52,25 @@ const ArticleList: React.FC = () => {
           onArticleCreate={handleCreateArticle}
         />
       </div>
-      <section className={classes.countryList} ref={parentRef} style={{ height: "500px", overflow: "auto", marginTop:"20px" }}>
-        <div style={{ position: "relative", height: `${rowVirtualizer.getTotalSize()}px` }}>
+
+      {loading && articlesList.length === 0 && (
+        <div className={classes.loadingIndicator}>Loading articles...</div>
+      )}
+
+      <section
+        className={classes.countryList}
+        ref={parentRef}
+        style={{ height: "500px", overflow: "auto", marginTop: "20px" }}
+        onScroll={handleScroll}
+      >
+        <div
+          style={{
+            position: "relative",
+            height: `${rowVirtualizer.getTotalSize()}px`,
+          }}
+        >
           {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+
             const article = articlesList[virtualRow.index];
 
             return (
@@ -66,22 +82,39 @@ const ArticleList: React.FC = () => {
                   left: 0,
                   width: "100%",
                   transform: `translateY(${virtualRow.start}px)`,
-                  display:"flex"
+                  display: "flex",
+                  marginBottom: "20px"
                 }}
               >
                 <Link
-                  style={{ color:"black", textDecoration: "none", fontSize: 24, width:"100%" }}
+                  style={{
+                    color: "black",
+                    textDecoration: "none",
+                    fontSize: 24,
+                    width: "100%",
+                    
+                  }}
                   to={`/articles/${article.id}`}
                 >
-                  <Article >
+                  <Article>
                     <img src={article.imageSrc} alt={article.title} />
                     <ArticleInfo>
-                      <ArticleTitle onUpVote={article.id} voteCount={article.vote}>
+                      <ArticleTitle
+                        onUpVote={article.id}
+                        voteCount={article.vote}
+                      >
                         {article.title}
                       </ArticleTitle>
-                      <ArticleDescription>{article.description}</ArticleDescription>
+                      <ArticleDescription>
+                        {article.description}
+                      </ArticleDescription>
                       <div
-                        style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 16 }}
+                        style={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          alignItems: "center",
+                          gap: 16,
+                        }}
                       >
                         <span>More Info</span>
                         <span
@@ -99,49 +132,6 @@ const ArticleList: React.FC = () => {
           })}
         </div>
       </section>
-      {/* <section className={classes.countryList}>
-        {articlesList.map((article: any) => {
-          return (
-            <Link
-              key={article.id}
-              style={{
-                color: "blue",
-                textDecoration: "none",
-                fontSize: 24,
-              }}
-              to={`/articles/${article.id}`}
-            >
-              <Article>
-                <img src={article.imageSrc} alt={article.title} />
-                <ArticleInfo>
-                  <ArticleTitle onUpVote={article.id} voteCount={article.vote}>
-                    {article.title}
-                  </ArticleTitle>
-                  <ArticleDescription>{article.description}</ArticleDescription>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      alignItems: "center",
-                      gap: 16,
-                    }}
-                  >
-                    <span>More Info</span>
-                    <span
-                      style={{ color: "red" }}
-                      onClick={(e) => {
-                        handleArticleDelete(e, article.id);
-                      }}
-                    >
-                      DELETE
-                    </span>
-                  </div>
-                </ArticleInfo>
-              </Article>
-            </Link>
-          );
-        })}
-      </section> */}
     </>
   );
 };
